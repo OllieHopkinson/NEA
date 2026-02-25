@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+To Do App - Sign In
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Theory Test App</h1>
+        <p>Welcome to the Theory Test App! Please sign in to access your dashboard.</p>
+        <form>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <button type="submit">Sign In</button>
+            </div>
+        </form>
+
+        <p>Don't have an account? <a href="/signup">Sign up here</a>.</p>
+    </div>
+{% endblock %}
