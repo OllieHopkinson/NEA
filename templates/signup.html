@@ -1,9 +1,36 @@
 {% extends "base.html" %}
 
 {% block title %}
-To Do App - Sign Up
+To Do App - Sign In
 {% endblock %}
 
 {% block content %}
-    <h1>Sign up</h1>
+    <div>
+        <h1>Theory Test App</h1>
+        <h2>Sign Up</h2>
+        <p>Welcome to the Theory Test App! Please sign up to access your dashboard.</p>
+        <form action = "/auth/create_user" method = "post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required minlength="2"  maxlength="10">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="4">
+            </div>
+            <div>
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required minlength="4">
+            </div>
+            <div>
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+
+        <p>Already have an account? <a href="/signin">Sign in here</a>.</p>
+    </div>
 {% endblock %}
