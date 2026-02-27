@@ -45,11 +45,17 @@ def create_user():
             #This add the users data to the database if all checks are passed
             db = DatabaseHandler()
             if user_type == 'student':
-                db.createStudent(username, password, email)
+                success = db.createStudent(username, password, email)
             else:
-                db.createInstructor(username, password, email)
-            return render_template('dashboard.html')
+                success = db.createInstructor(username, password, email)
+
+            if success:
+                return render_template('dashboard.html')
+            
         
     return 'failed to create user'
+
+# db = DatabaseHandler()
+# db.createTables()
 
 app.run(debug=True)
