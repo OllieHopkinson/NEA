@@ -52,7 +52,4 @@ def create_user():
         
     return 'failed to create user'
 
-db = DatabaseHandler()
-db.createTables()
-
 app.run(debug=True)
