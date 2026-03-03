@@ -37,11 +37,9 @@ def authorise_student():
     username = formDetails.get('username')
     password = formDetails.get('password')
     email = formDetails.get('email')
-    print(f"[DEBUG] authorise_student request: {formDetails}")
 
     db = DatabaseHandler()
     success = db.authoriseUserType(username, password, email, 'student')
-    print(f"[DEBUG] student auth success={success}")
 
     if success:
         return redirect(url_for('studentDashboard'))
@@ -55,11 +53,9 @@ def authorise_instructor():
     username = formDetails.get('username')
     password = formDetails.get('password')
     email = formDetails.get('email')
-    print(f"[DEBUG] authorise_instructor request: {formDetails}")
 
     db = DatabaseHandler()
     success = db.authoriseUserType(username, password, email, 'instructor')
-    print(f"[DEBUG] instructor auth success={success}")
 
     if success:
         return redirect(url_for('instructorDashboard'))
@@ -72,13 +68,11 @@ def authorise_user_generic():
     # dispatch based on the user_type field and log details
     formDetails = request.form
     user_type = formDetails.get('user_type')
-    print(f"[DEBUG] generic authorise request: {formDetails}")
     if user_type == 'student':
         return authorise_student()
     elif user_type == 'instructor':
         return authorise_instructor()
     else:
-        print("[DEBUG] no user_type selected")
         return redirect(url_for('signin'))
 
 

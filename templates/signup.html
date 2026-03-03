@@ -6,7 +6,6 @@ To Do App - Sign Up
 
 {% block content %}
     <div>
-        <p>Note: choose a role first, then fill out the form; click the Sign In button at the end.</p>
         <h1>Theory Test App</h1>
         <h2>Sign Up</h2>
         <p>Welcome to the Theory Test App! Please sign up to access your dashboard.</p>
@@ -16,15 +15,17 @@ To Do App - Sign Up
             <button type="button" id="instructor-btn">Instructor</button>
         </div>
         <script>
-        const userTypeInput = document.getElementById('user_type');
-        const submitBtn = document.getElementById('submit-btn');
-        document.getElementById('student-btn').addEventListener('click', function() {
-            userTypeInput.value = 'student';
-            submitBtn.disabled = false;
-        });
-        document.getElementById('instructor-btn').addEventListener('click', function() {
-            userTypeInput.value = 'instructor';
-            submitBtn.disabled = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            const userTypeInput = document.getElementById('user_type');
+            const submitBtn = document.getElementById('submit-btn');
+            document.getElementById('student-btn').addEventListener('click', function() {
+                userTypeInput.value = 'student';
+                submitBtn.disabled = false;
+            });
+            document.getElementById('instructor-btn').addEventListener('click', function() {
+                userTypeInput.value = 'instructor';
+                submitBtn.disabled = false;
+            });
         });
         </script>
         <form action = "/auth/create_user" method = "post">
