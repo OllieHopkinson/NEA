@@ -6,35 +6,31 @@ To Do App - Sign Up
 
 {% block content %}
     <div>
+        <p>Note: choose a role first, then fill out the form; click the Sign In button at the end.</p>
         <h1>Theory Test App</h1>
         <h2>Sign Up</h2>
         <p>Welcome to the Theory Test App! Please sign up to access your dashboard.</p>
-        
-        <!-- These button chooses which kind of user it is when the person is singing up -->  
         <div>
+            <p>Select your role:</p>
             <button type="button" id="student-btn">Student</button>
             <button type="button" id="instructor-btn">Instructor</button>
         </div>
-
-        <!-- This script is used to set the value of the hidden input field to either student or instructor depending on which button is clicked -->
         <script>
-        document.getElementById("student-btn").onclick = function() {
-            document.getElementById("user_type").value = "student";
-        };
-
-        document.getElementById("instructor-btn").onclick = function() {
-            document.getElementById("user_type").value = "instructor";
-        };
+        const userTypeInput = document.getElementById('user_type');
+        const submitBtn = document.getElementById('submit-btn');
+        document.getElementById('student-btn').addEventListener('click', function() {
+            userTypeInput.value = 'student';
+            submitBtn.disabled = false;
+        });
+        document.getElementById('instructor-btn').addEventListener('click', function() {
+            userTypeInput.value = 'instructor';
+            submitBtn.disabled = false;
+        });
         </script>
-        
-        <!-- This form is used to get the data from the user -->
         <form action = "/auth/create_user" method = "post">
             <input type="hidden" name="user_type" id="user_type" value="">
-            
-            <!-- These labes and input feilds are used to get the username email and password from the user -->
             <div>
                 <label for="username">Username:</label>
-                <!-- Client side validation is used here to make sure the data they are inputting is valid and meets the requirements before it is sent to the server -->
                 <input type="text" id="username" name="username" required minlength="2"  maxlength="10">
             </div>
             <div>
@@ -49,14 +45,11 @@ To Do App - Sign Up
                 <label for="confirm_password">Confirm Password:</label>
                 <input type="password" id="confirm_password" name="confirm_password" required minlength="4">
             </div>
-
-            <!-- This button submits the form and creates the user if all the requirements are met -->
             <div>
-                <button type="submit">Sign Up</button>
+                <button type="submit" id="submit-btn" disabled>Sign In</button>
             </div>
         </form>
 
         <p>Already have an account? <a href="/signin">Sign in here</a>.</p>
     </div>
-    
 {% endblock %}

@@ -12,8 +12,15 @@ To Do App - Sign In
     <div>
         <h1>Theory Test App</h1>
         <p>Welcome to the Theory Test App! Please sign in to access your dashboard.</p>
-        <p>Welcome to the Theory Test App! Please sign in to access your dashboard.</p>
-        <form action = "/auth/create_user" method = "post">
+        <!-- choose user type and set hidden field; cannot submit until role chosen -->
+        <div>
+            <button type="button" id="student-btn">Student</button>
+            <button type="button" id="instructor-btn">Instructor</button>
+        </div>
+
+        <form id="signin-form" action = "/auth/authorise_user" method = "post">
+            <input type="hidden" name="user_type" id="user_type" value="">
+
             <div>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -27,9 +34,31 @@ To Do App - Sign In
                 <input type="password" id="password" name="password" required>
             </div>
             <div>
-                <button type="submit">Sign In</button>
+                <button id="submit-btn" type="submit" disabled>Sign In</button>
             </div>
         </form>
+
+        <!-- This script sets the hidden input and also adjusts the form action to the correct authorisation endpoint -->
+        <script>
+        const signinForm = document.getElementById('signin-form');
+        const submitBtn = document.getElementById('submit-btn');
+        document.getElementById("student-btn").onclick = function() {
+            document.getElementById("user_type").value = "student";
+            submitBtn.disabled = false;
+        };
+
+        document.getElementById("instructor-btn").onclick = function() {
+            document.getElementById("user_type").value = "instructor";
+            submitBtn.disabled = false;
+        };
+
+        signinForm.onsubmit = function() {
+            if (!document.getElementById("user_type").value) {
+                alert('Please choose student or instructor before signing in.');
+                return false;
+            }
+        };
+        </script>
 
         <p>Don't have an account? <a href="/signup">Sign up here</a>.</p>
     </div>
