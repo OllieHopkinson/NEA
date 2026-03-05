@@ -14,7 +14,7 @@ app.register_blueprint(pages)
 app.register_blueprint(authorise)
 
 
-# db = DatabaseHandler()
-# db.createTables()
+db = DatabaseHandler()
+db.createTables()
 
 app.run(debug=True)

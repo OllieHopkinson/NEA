@@ -21,8 +21,8 @@ class DatabaseHandler:
             
             con.execute('''CREATE TABLE IF NOT EXISTS instructors(
                         instructorId INTEGER PRIMARY KEY AUTOINCREMENT,
-                        username TEXT NOT NULL,
-                        password TEXT NOT NULL,
+                        username TEXT NOT NULL CHECK(LENGTH(username) > 2),
+                        password TEXT NOT NULL CHECK(LENGTH(password) > 4),
                         email TEXT UNIQUE NOT NULL);''')
             
             
