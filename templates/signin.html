@@ -1,69 +1,82 @@
-<!--
-    This uses the base template that we set up earlier
--->
 {% extends "base.html" %}
 
-    {# Page title shown in browser tab #}
-    {% block title %}
-To Do App - Sign In
+{% block title %}
+Theory Test App - Sign In
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/signin.css') }}">
 {% endblock %}
 
 {% block content %}
-    <div>
-        <h1>Theory Test App</h1>
-        <p>Welcome to the Theory Test App! Please sign in to access your dashboard.</p>
-        <!-- choose user type and set hidden field; cannot submit until role chosen -->
-        <div>
-            <button type="button" id="student-btn">Student</button>
-            <button type="button" id="instructor-btn">Instructor</button>
+<div class="signin-page">
+    <div class="signin-card">
+        <div class="title-box">Sign In</div>
+
+        <div class="role-row">
+            <button type="button" id="student-btn" class="role-btn">Student</button>
+            <button type="button" id="instructor-btn" class="role-btn">Instructor</button>
         </div>
 
-        <form id="signin-form" action = "/auth/authorise_user" method = "post">
+        <form id="signin-form" action="/auth/authorise_user" method="post" class="signin-form">
             <input type="hidden" name="user_type" id="user_type" value="">
 
-            <div>
-                <label for="username">Username:</label>
+            <div class="field-group">
+                <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
             </div>
-            <div>
-                <label for="email">Email:</label>
+
+            <div class="field-group">
+                <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
-            <div>
-                <label for="password">Password:</label>
+
+            <div class="field-group">
+                <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <div>
-                <button id="submit-btn" type="submit" disabled>Sign In</button>
+
+            <div class="bottom-row">
+                <a href="/" class="signup-link">Don't have an account?<br>Sign Up</a>
+
+                <div class="error-message">
+                    {% if messages %}
+                        {{ messages[0] }}
+                    {% endif %}
+                </div>
+
+                <button id="submit-btn" type="submit" class="submit-btn" disabled>Submit</button>
             </div>
         </form>
-
-        <!-- This script sets the hidden input and also adjusts the form action to the correct authorisation endpoint -->
-        <script>
-        const signinForm = document.getElementById('signin-form');
-        const submitBtn = document.getElementById('submit-btn');
-        document.getElementById("student-btn").onclick = function() {
-            document.getElementById("user_type").value = "student";
-            submitBtn.disabled = false;
-        };
-
-        document.getElementById("instructor-btn").onclick = function() {
-            document.getElementById("user_type").value = "instructor";
-            submitBtn.disabled = false;
-        };
-
-        signinForm.onsubmit = function() {
-            if (!document.getElementById("user_type").value) {
-                alert('Please choose student or instructor before signing in.');
-                return false;
-            }
-        };
-        </script>
-
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-
-        <p>Don't have an account? <a href="/">Sign up here</a>.</p>
     </div>
+</div>
+
+<script>
+const signinForm = document.getElementById('signin-form');
+const submitBtn = document.getElementById('submit-btn');
+const studentBtn = document.getElementById('student-btn');
+const instructorBtn = document.getElementById('instructor-btn');
+const userTypeInput = document.getElementById('user_type');
+
+studentBtn.addEventListener('click', function() {
+    userTypeInput.value = 'student';
+    submitBtn.disabled = false;
+    studentBtn.classList.add('active');
+    instructorBtn.classList.remove('active');
+});
+
+instructorBtn.addEventListener('click', function() {
+    userTypeInput.value = 'instructor';
+    submitBtn.disabled = false;
+    instructorBtn.classList.add('active');
+    studentBtn.classList.remove('active');
+});
+
+signinForm.addEventListener('submit', function(event) {
+    if (!userTypeInput.value) {
+        event.preventDefault();
+        alert('Please choose student or instructor before signing in.');
+    }
+});
+</script>
 {% endblock %}

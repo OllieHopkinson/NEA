@@ -6,15 +6,20 @@ from scripts.authorised import authorised
 from blueprints.page import pages
 from blueprints.authorise import authorise
 
+# Secret key for session encryption
 SECRET_KEY = 'supersecretkey'
 
+# Create Flask app instance
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
+# Register blueprints for page routes and authentication routes
 app.register_blueprint(pages)
 app.register_blueprint(authorise)
 
 
-db = DatabaseHandler()
-db.createTables()
+# Uncomment these lines to create database tables on startup
+# db = DatabaseHandler()
+# db.createTables()
 
+# Run the Flask development server
 app.run(debug=True)

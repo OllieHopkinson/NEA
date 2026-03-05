@@ -1,11 +1,14 @@
+<!-- Student Dashboard - Main page after student login -->
 {% extends "base.html" %}
 
 {% block title %}
-To Do App - Dashboard
+Test Theory App - Dashboard
 {% endblock %}
 
 {% block content %}
     <h1>Dashboard</h1>
+    <!-- Display welcome message with username -->
     <h2>Welcome, {{ user }}</h2>
+    <!-- Link to log out -->
     <a href='auth/logout'>Logout</a>
 {% endblock %}
