@@ -26,23 +26,29 @@ Theory Test App - Sign Up
         border-radius: 30px;
         height: 100vh;
         width: 100%;
-        padding: 40px 60px;
+        padding: 20px 40px;
         display: grid;
-        grid-template-columns: 1fr 200px;
+        grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
-        gap: 30px;
+        gap: 15px;
         align-content: start;
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     .heading-box {
-        grid-column: 1;
+        grid-column: 1 / -1;
         background-color: #f9f9f9;
         border: 2px solid #333;
         border-radius: 30px;
-        padding: 40px;
+        padding: 30px;
         text-align: center;
         margin-bottom: 20px;
+        grid-row: 1 / 2;
+        min-height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     h1 {
@@ -61,27 +67,28 @@ Theory Test App - Sign Up
         grid-row: 2;
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 20px;
         width: 100%;
     }
 
     .role-selection {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 40px;
+        gap: 15px;
         width: 100%;
     }
 
     .role-btn {
-        padding: 30px;
+        padding: 25px;
         border: 2px solid #333;
         border-radius: 30px;
         background-color: white;
-        font-size: 24px;
+        font-size: 22px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-weight: 500;
         text-align: center;
+        width: 100%;
     }
 
     .role-btn:hover {
@@ -96,7 +103,7 @@ Theory Test App - Sign Up
     form {
         display: flex;
         flex-direction: column;
-        gap: 35px;
+        gap: 25px;
         width: 100%;
     }
 
@@ -104,16 +111,23 @@ Theory Test App - Sign Up
         display: grid;
         gap: 20px;
         align-items: end;
+        grid-template-columns: 1fr 1fr;
     }
 
-    .form-row.username-row,
-    .form-row.repassword-row {
-        grid-template-columns: 1fr auto;
+    .form-row.username-row {
+        grid-template-columns: 1fr 200px;
     }
 
-    .form-row.email-row,
+    .form-row.email-row {
+        grid-template-columns: 1fr 200px;
+    }
+
     .form-row.password-row {
-        grid-template-columns: 1fr 220px;
+        grid-template-columns: 1fr 200px;
+    }
+
+    .form-row.repassword-row {
+        grid-template-columns: 1fr 200px;
     }
 
     .form-group {
@@ -131,22 +145,19 @@ Theory Test App - Sign Up
     }
 
     .error-inline {
-        background-color: #fee;
-        border: 1px solid #fcc;
-        border-radius: 15px;
-        padding: 10px 15px;
-        color: #c33;
-        font-size: 12px;
-        min-height: 65px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+        color: #666;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: right;
+        padding: 10px 0;
     }
 
     .error-inline:empty {
-        border: none;
-        background-color: transparent;
+        display: none;
+    }
+
+    .error-inline p {
+        margin: 0;
     }
 
     .login-inline {
@@ -157,16 +168,20 @@ Theory Test App - Sign Up
         font-size: 14px;
         text-align: center;
         white-space: nowrap;
-    }
-
-    .login-inline a {
+        min-height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
         color: #333;
         text-decoration: none;
         font-weight: 500;
     }
 
-    .login-inline a:hover {
-        color: #666;
+    .login-inline:hover {
+        background-color: #333;
+        color: white;
     }
 
     label {
@@ -241,9 +256,9 @@ Theory Test App - Sign Up
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required minlength="2" maxlength="10">
                 </div>
-                <div class="login-inline">
-                    Already have an account? <a href="/signin">Login</a>
-                </div>
+                <a href="/signin" class="login-inline">
+                    Already have an account? Login
+                </a>
             </div>
 
             <div class="form-row email-row">
@@ -266,11 +281,6 @@ Theory Test App - Sign Up
                     <input type="password" id="password" name="password" required minlength="4">
                 </div>
                 <div class="error-inline">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
-                    {% endif %}
                 </div>
             </div>
 

@@ -88,7 +88,7 @@ def create_user():
     if len(password) < 4:
         errors.append('Password must be at least 4 characters long.')
     if password != confirm_password:
-        errors.append('Password and confirmation do not match.')
+        errors.append('Passwords do not match.')
     if not any(char in numbers for char in password):
         errors.append('Password must contain at least one number.')
     if not any(char in special_characters for char in password):
