@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, url_for, session
+from flask import Blueprint, flash, request, redirect, url_for, session
 
 from database import DatabaseHandler
 
@@ -22,11 +22,12 @@ def authorise_student():
     success = db.authoriseUserType(username, password, email, 'student')
 
     if success:
-        if success:
-            session['user'] = username # Store username in session for later use
-            session['role'] = 'student'   
-            return redirect(url_for('pages.studentDashboard'))        
+        # double-check not necessary, but kept for logic consistency
+        session['user'] = username # Store username in session for later use
+        session['role'] = 'student'   
+        return redirect(url_for('pages.studentDashboard'))        
     else:
+        flash('Invalid credentials or user type. Please try again.')
         return redirect(url_for('pages.signin'))
     
     
@@ -46,6 +47,7 @@ def authorise_instructor():
         session['role'] = 'instructor' 
         return redirect(url_for('pages.instructorDashboard'))
     else:
+        flash('Invalid credentials or user type. Please try again.')
         return redirect(url_for('pages.signin'))
         
 
@@ -73,15 +75,42 @@ def create_user():
     user_type = formDetails.get('user_type')
 
     # This does server side checks and validates that anything inputted is in the right format and meets the requirements
-    if (len(username) >= 3 and len(username) <= 10 
-        and len(password) >= 4 
-        and password == confirm_password
-        and user_type in ['student', 'instructor']
-        and not any(char in special_characters for char in username)
-        and any(char in numbers for char in password)
-        and any(char in special_characters for char in password)):
-            # This adds the user's data to the database if all checks are passed
-            db = DatabaseHandler()
+    # server side validation with detailed error messages
+    errors = []
+
+    # username length and characters
+    if not (3 <= len(username) <= 10):
+        errors.append('Username must be between 3 and 10 characters long.')
+    if any(char in special_characters for char in username):
+        errors.append('Username may not contain special characters.')
+
+    # password requirements
+    if len(password) < 4:
+        errors.append('Password must be at least 4 characters long.')
+    if password != confirm_password:
+        errors.append('Password and confirmation do not match.')
+    if not any(char in numbers for char in password):
+        errors.append('Password must contain at least one number.')
+    if not any(char in special_characters for char in password):
+        errors.append('Password must contain at least one special character.')
+
+    # user type check
+    if user_type not in ['student', 'instructor']:
+        errors.append('You must select either student or instructor.')
+
+    # proceed only if no validation errors
+    if not errors:
+        db = DatabaseHandler()
+
+        # verify that email is not already taken (usernames may be shared)
+        with db.connect() as con:
+            cur = con.cursor()
+            table = 'students' if user_type == 'student' else 'instructors'
+            cur.execute(f"SELECT 1 FROM {table} WHERE email = ?", (email,))
+            if cur.fetchone():
+                errors.append('Email already in use.')
+
+        if not errors:
             if user_type == 'student':
                 success = db.createStudent(username, password, email)
             else:
@@ -93,8 +122,13 @@ def create_user():
                     return redirect(url_for('pages.studentDashboard'))
                 else:
                     return redirect(url_for('pages.instructorDashboard'))
-    
-    # any failure falls back to showing the signup page again
+            else:
+                # underlying database error (e.g. unique constraint violation)
+                errors.append('An internal error occurred; please try again.')
+
+    # flash each error and redirect back to signup page
+    for msg in errors:
+        flash(msg)
     return redirect(url_for('pages.signup'))
 
 

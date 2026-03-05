@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, url_for, redirect
+from flask import Blueprint, get_flashed_messages, render_template, request, session, url_for, redirect
 from scripts.authorised import authorised
 
 pages = Blueprint('pages', __name__)
@@ -13,13 +13,15 @@ def signin():
         elif role == 'instructor':
             return redirect(url_for('pages.instructorDashboard'))
 
-    return render_template('signin.html')
+    messages = get_flashed_messages()
+    return render_template('signin.html', messages=messages)
 
 
 # Route shows the signup page where new users can register.
 @pages.route('/')
 def signup():
-    return render_template('signup.html')
+    messages = get_flashed_messages()
+    return render_template('signup.html', messages = messages)
 
 
 # Dashboard route shown after successful login or signup.

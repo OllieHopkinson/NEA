@@ -60,6 +60,10 @@ To Do App - Sign In
         };
         </script>
 
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+
         <p>Don't have an account? <a href="/">Sign up here</a>.</p>
     </div>
 {% endblock %}
