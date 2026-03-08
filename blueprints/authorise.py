@@ -119,7 +119,7 @@ def create_user():
     if not errors:
         db = DatabaseHandler()
 
-        # verify that email is not already taken (usernames may be shared)
+        # verify that email is not already taken
         with db.connect() as con:
             cur = con.cursor()
             table = 'students' if user_type == 'student' else 'instructors'

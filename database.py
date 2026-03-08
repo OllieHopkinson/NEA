@@ -78,7 +78,6 @@ class DatabaseHandler:
             print(e)
             return False
         
-    # Add a new student to the database with hashed password        
     #Here is where the functions are to create a student or instructor they take in the username password and email and add them to the database
     def createStudent(self, username, password, email):
         try:

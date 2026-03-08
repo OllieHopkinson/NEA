@@ -18,8 +18,8 @@ app.register_blueprint(authorise)
 
 
 # Uncomment these lines to create database tables on startup
-# db = DatabaseHandler()
-# db.createTables()
+db = DatabaseHandler()
+db.createTables()
 
 # Run the Flask development server
 app.run(debug=True)

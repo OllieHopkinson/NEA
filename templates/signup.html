@@ -27,6 +27,32 @@ Theory Test App - Sign Up
             <button type="button" class="role-btn" id="instructor-btn">Instructor</button>
         </div>
 
+        <!-- JavaScript to handle role selection and enable submit button -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userTypeInput = document.getElementById('user_type');
+            const submitBtn = document.getElementById('submit-btn');
+            const studentBtn = document.getElementById('student-btn');
+            const instructorBtn = document.getElementById('instructor-btn');
+
+            // Set user type to student when student button clicked
+            studentBtn.addEventListener('click', function() {
+                userTypeInput.value = 'student';
+                submitBtn.disabled = false;
+                studentBtn.classList.add('active');
+                instructorBtn.classList.remove('active');
+            });
+
+            // Set user type to instructor when instructor button clicked
+            instructorBtn.addEventListener('click', function() {
+                userTypeInput.value = 'instructor';
+                submitBtn.disabled = false;
+                instructorBtn.classList.add('active');
+                studentBtn.classList.remove('active');
+            });
+        });
+        </script>
+
         <!-- Registration form -->
         <form action="/auth/create_user" method="post">
             <!-- Hidden field stores selected user type -->
@@ -79,29 +105,4 @@ Theory Test App - Sign Up
 
 </div>
 
-<!-- JavaScript to handle role selection and enable submit button -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const userTypeInput = document.getElementById('user_type');
-    const submitBtn = document.getElementById('submit-btn');
-    const studentBtn = document.getElementById('student-btn');
-    const instructorBtn = document.getElementById('instructor-btn');
-
-    // Set user type to student when student button clicked
-    studentBtn.addEventListener('click', function() {
-        userTypeInput.value = 'student';
-        submitBtn.disabled = false;
-        studentBtn.classList.add('active');
-        instructorBtn.classList.remove('active');
-    });
-
-    // Set user type to instructor when instructor button clicked
-    instructorBtn.addEventListener('click', function() {
-        userTypeInput.value = 'instructor';
-        submitBtn.disabled = false;
-        instructorBtn.classList.add('active');
-        studentBtn.classList.remove('active');
-    });
-});
-</script>
 {% endblock %}
