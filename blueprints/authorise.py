@@ -124,7 +124,7 @@ def create_user():
             cur = con.cursor()
             table = 'students' if user_type == 'student' else 'instructors'
             cur.execute(f"SELECT 1 FROM {table} WHERE email = ?", (email,))
-            if not cur.fetchone():
+            if cur.fetchone():
                 errors.append('Email already in use.')
 
         if not errors:
