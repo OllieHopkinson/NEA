@@ -70,10 +70,9 @@ class DatabaseHandler:
                 cur.execute(f'''SELECT password FROM {table} WHERE username = ? AND email = ?''',
                             (username, email))
                 storedHash = cur.fetchone()
-                # Verify the password matches the stored hash
                 if storedHash and check_password_hash(storedHash[0], password):
                     return True
-                return False
+            return False
         except Exception as e:
             print(e)
             return False

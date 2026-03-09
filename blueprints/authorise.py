@@ -37,7 +37,6 @@ def authorise_student():
     
     
 # Handle instructor login - verifies credentials and creates session
-# This function is called when the user submits the login form. It checks the credentials against the database and redirects to the appropriate dashboard if successful, or back to signin if not for instructors.
 @authorise.route('/authoriseInstructor', methods=['POST'])
 def authorise_instructor():
     # Get login form data
