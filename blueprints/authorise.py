@@ -124,7 +124,7 @@ def create_user():
             cur = con.cursor()
             table = 'students' if user_type == 'student' else 'instructors'
             cur.execute(f"SELECT 1 FROM {table} WHERE email = ?", (email,))
-            if cur.fetchone():
+            if not cur.fetchone():
                 errors.append('Email already in use.')
 
         if not errors:
@@ -135,6 +135,9 @@ def create_user():
                 success = db.createInstructor(username, password, email)
 
             if success:
+                # Set session variables to log in the user
+                session['user'] = username
+                session['role'] = user_type
                 # redirect to the appropriate dashboard after signup
                 if user_type == 'student':
                     return redirect(url_for('pages.studentDashboard'))
