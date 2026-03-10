@@ -38,5 +38,15 @@
       "Driving close to other vehicles"
     ],
     "answer": "Smooth steering, braking, and acceleration"
+  },
+  {
+    "question": "What should you do if your vehicle begins to skid on a wet road?",
+    "options": [
+      "Brake hard and turn the wheel sharply",
+      "Release pressure on the accelerator and steer in the direction you want to go",
+      "Turn the wheel in the opposite direction of the skid",
+      "Accelerate to regain control"
+    ],
+    "answer": "Release pressure on the accelerator and steer in the direction you want to go"
   }
 ]

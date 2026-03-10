@@ -38,5 +38,15 @@
       "Traffic lights broken"
     ],
     "answer": "Proceed if crossing is clear"
+  },
+  {
+    "question": "What does a red traffic light with an arrow pointing right mean?",
+    "options": [
+      "You may continue in any direction",
+      "You must wait until the arrow disappears",
+      "You may turn right only if it is safe",
+      "You must turn right at this moment"
+    ],
+    "answer": "You may turn right only if it is safe"
   }
 ]

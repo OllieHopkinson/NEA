@@ -38,5 +38,15 @@
       "Road tax payment receipt"
     ],
     "answer": "Registered keeper details"
+  },
+  {
+    "question": "Which document proves that your car has passed an MOT test?",
+    "options": [
+      "The V5C logbook",
+      "The insurance certificate",
+      "The MOT certificate",
+      "The road tax disc"
+    ],
+    "answer": "The MOT certificate"
   }
 ]

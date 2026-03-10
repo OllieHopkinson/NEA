@@ -38,5 +38,15 @@
       "Bus lane starts"
     ],
     "answer": "Do not cross or straddle except where permitted"
+  },
+  {
+    "question": "What should you do when approaching a zebra crossing with pedestrians waiting?",
+    "options": [
+      "Speed up to get past quickly",
+      "Reduce speed and prepare to stop",
+      "Sound your horn to warn them",
+      "Flash your headlights only"
+    ],
+    "answer": "Reduce speed and prepare to stop"
   }
 ]

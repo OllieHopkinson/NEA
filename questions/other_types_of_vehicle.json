@@ -38,5 +38,15 @@
       "They cannot change lanes"
     ],
     "answer": "Their speed and distance can be harder to assess"
+  },
+  {
+    "question": "Why should you give extra space to large vehicles when following them?",
+    "options": [
+      "Because they are more expensive",
+      "Because they have larger blind spots and higher riding height",
+      "Because they are always speeding",
+      "Because they are always turning left"
+    ],
+    "answer": "Because they have larger blind spots and higher riding height"
   }
 ]

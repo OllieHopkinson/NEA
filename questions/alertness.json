@@ -48,5 +48,15 @@
       "Keep moving to avoid traffic"
     ],
     "answer": "Stop as soon as it is safe and rest"
+  },
+  {
+    "question": "What is a good way to help yourself stay alert on a long drive?",
+    "options": [
+      "Ensure the car is uncomfortably hot",
+      "Play engaging music or podcasts",
+      "Drive continuously without stopping",
+      "Avoid eating or drinking"
+    ],
+    "answer": "Play engaging music or podcasts"
   }
 ]

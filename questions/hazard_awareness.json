@@ -38,5 +38,15 @@
       "Use horn continuously"
     ],
     "answer": "Keep central and be ready to stop"
+  },
+  {
+    "question": "When driving in rain, what should you be most aware of?",
+    "options": [
+      "Other drivers' make of car",
+      "Reduced grip and longer stopping distances",
+      "The color of traffic lights",
+      "Tourist attractions nearby"
+    ],
+    "answer": "Reduced grip and longer stopping distances"
   }
 ]

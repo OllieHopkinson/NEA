@@ -38,5 +38,15 @@
       "Social media handles"
     ],
     "answer": "Name, address, and vehicle details"
+  },
+  {
+    "question": "What should you do if you witness a serious accident involving other vehicles?",
+    "options": [
+      "Drive past quickly",
+      "Stop at a safe distance, switch on hazards, and call emergency services",
+      "Move the injured people yourself",
+      "Only report it if you know those involved"
+    ],
+    "answer": "Stop at a safe distance, switch on hazards, and call emergency services"
   }
 ]

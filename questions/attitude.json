@@ -48,5 +48,15 @@
       "Use your horn to hurry them"
     ],
     "answer": "Give them extra space and patience"
+  },
+  {
+    "question": "What is the most important aspect of being a responsible driver?",
+    "options": [
+      "Driving as fast as possible",
+      "Respecting other road users and obeying the law",
+      "Using aggressive signals",
+      "Always being first at junctions"
+    ],
+    "answer": "Respecting other road users and obeying the law"
   }
 ]

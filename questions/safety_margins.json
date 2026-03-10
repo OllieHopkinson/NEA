@@ -38,5 +38,15 @@
       "Brake sharply"
     ],
     "answer": "Maintain a steady speed"
+  },
+  {
+    "question": "What is the minimum safe following distance behind another vehicle at 50 mph?",
+    "options": [
+      "The length of one car",
+      "At least 50 meters or 4 seconds",
+      "As close as the car in front",
+      "10 meters only"
+    ],
+    "answer": "At least 50 meters or 4 seconds"
   }
 ]

@@ -38,5 +38,15 @@
       "Whenever you change lane"
     ],
     "answer": "To warn traffic behind of a hazard ahead"
+  },
+  {
+    "question": "Where can you stop on a motorway to rest if you feel tired?",
+    "options": [
+      "On the hard shoulder",
+      "In a service area",
+      "On the middle lane",
+      "Before the slip road"
+    ],
+    "answer": "In a service area"
   }
 ]

@@ -38,5 +38,15 @@
       "Only climate control"
     ],
     "answer": "Seat, head restraint, and mirrors"
+  },
+  {
+    "question": "How often should you check your vehicle's oil level?",
+    "options": [
+      "Once a year",
+      "Only when servicing",
+      "Between every fill-up of fuel or weekly",
+      "Never, it is automatic"
+    ],
+    "answer": "Between every fill-up of fuel or weekly"
   }
 ]
