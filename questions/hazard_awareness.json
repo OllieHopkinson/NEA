@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What is a developing hazard?",
+    "options": [
+      "A fixed road sign",
+      "Something that may cause you to change speed or direction",
+      "A parked car with no one nearby",
+      "A clear straight road"
+    ],
+    "answer": "Something that may cause you to change speed or direction"
+  },
+  {
+    "question": "Why should you scan far ahead while driving?",
+    "options": [
+      "To ignore nearby traffic",
+      "To identify hazards early",
+      "To drive faster safely",
+      "To reduce mirror checks"
+    ],
+    "answer": "To identify hazards early"
+  },
+  {
+    "question": "A ball rolls into the road ahead. What should you expect?",
+    "options": [
+      "No further risk",
+      "A child may follow it",
+      "A roadworks diversion",
+      "Traffic lights changing"
+    ],
+    "answer": "A child may follow it"
+  },
+  {
+    "question": "What should you do when passing parked vehicles in a busy area?",
+    "options": [
+      "Increase speed to pass quickly",
+      "Keep central and be ready to stop",
+      "Drive very close to parked cars",
+      "Use horn continuously"
+    ],
+    "answer": "Keep central and be ready to stop"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What should you do if you begin to feel sleepy while driving?",
+    "options": [
+      "Open a window and keep driving",
+      "Stop in a safe place and rest",
+      "Drive faster to stay focused",
+      "Turn up loud music only"
+    ],
+    "answer": "Stop in a safe place and rest"
+  },
+  {
+    "question": "A long, monotonous journey can make you less alert. What helps most?",
+    "options": [
+      "Taking regular breaks",
+      "Following another car closely",
+      "Drinking sugary drinks only",
+      "Using full beam headlights"
+    ],
+    "answer": "Taking regular breaks"
+  },
+  {
+    "question": "How often should you usually take a break on a long trip?",
+    "options": [
+      "Every 30 minutes",
+      "At least every 2 hours",
+      "Only when you feel unwell",
+      "At the end of the trip"
+    ],
+    "answer": "At least every 2 hours"
+  },
+  {
+    "question": "What can significantly reduce your concentration while driving?",
+    "options": [
+      "A clean windscreen",
+      "Using air conditioning",
+      "Using a hand-held mobile phone",
+      "Checking mirrors regularly"
+    ],
+    "answer": "Using a hand-held mobile phone"
+  },
+  {
+    "question": "You are driving at night and start to yawn repeatedly. What should you do?",
+    "options": [
+      "Continue until your destination",
+      "Stop as soon as it is safe and rest",
+      "Drive in a lower gear",
+      "Keep moving to avoid traffic"
+    ],
+    "answer": "Stop as soon as it is safe and rest"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "question": "On a motorway, which lane should you normally use?",
+    "options": [
+      "Right lane",
+      "Middle lane",
+      "Left lane when clear",
+      "Any lane continuously"
+    ],
+    "answer": "Left lane when clear"
+  },
+  {
+    "question": "What does a red X above a motorway lane mean?",
+    "options": [
+      "Lane open",
+      "Lane closed",
+      "Minimum speed applies",
+      "HGV lane only"
+    ],
+    "answer": "Lane closed"
+  },
+  {
+    "question": "If you miss your motorway exit, what should you do?",
+    "options": [
+      "Reverse on hard shoulder",
+      "Make a U-turn",
+      "Continue to next junction",
+      "Stop and wait for a gap"
+    ],
+    "answer": "Continue to next junction"
+  },
+  {
+    "question": "When should you use hazard warning lights while moving on a motorway?",
+    "options": [
+      "In heavy rain",
+      "To thank other drivers",
+      "To warn traffic behind of a hazard ahead",
+      "Whenever you change lane"
+    ],
+    "answer": "To warn traffic behind of a hazard ahead"
+  }
+]

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}
+UK Driving Theory Mock Test
+{% endblock %}
+
+{% block head %}
+<style>
+input[type="radio"] {
+    accent-color: #000;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mock-test-page">
+    <h1>UK Driving Theory Mock Test</h1>
+    <h2>Student: {{ user }}</h2>
+
+    {% if not result %}
+        <p>Time allowed: 60 minutes</p>
+        <p><strong>Time remaining:</strong> <span id="timer">60:00</span></p>
+    {% endif %}
+
+    {% if result %}
+        <div class="result-box">
+            <h3>Test Complete</h3>
+            <p><strong>Score:</strong> {{ result.score }} / {{ result.total }}</p>
+            <p>
+                <strong>Result:</strong>
+                {% if result.passed %}
+                    Pass
+                {% else %}
+                    Fail
+                {% endif %}
+            </p>
+            <p>Pass mark: {{ result.pass_mark }} out of {{ result.total }}</p>
+        </div>
+    {% endif %}
+
+    {% if not result %}
+        <form id="mock-test-form" method="post" action="{{ url_for('pages.student_mock_test') }}">
+            {% for question in questions %}
+                <fieldset>
+                    <legend>{{ loop.index }}. {{ question.question }}</legend>
+
+                    {% for option in question.options %}
+                        <label>
+                            <input type="radio" name="{{ question.id }}" value="{{ option }}">
+                            {{ option }}
+                        </label>
+                        <br>
+                    {% endfor %}
+                </fieldset>
+                <br>
+            {% endfor %}
+
+            <button type="submit">Submit Test</button>
+        </form>
+    {% endif %}
+
+    {% if result %}
+        <div class="result-box">
+            <h3>Question and Answer Review</h3>
+            <ol>
+                {% for question in questions %}
+                    <li>
+                        <strong>{{ question.question }}</strong><br>
+                        Your answer:
+                        {% if submitted_answers.get(question.id) %}
+                            {{ submitted_answers.get(question.id) }}
+                        {% else %}
+                            No answer selected
+                        {% endif %}
+                        <br>
+                        Correct answer: {{ question.answer }}
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    {% endif %}
+
+    <p><a href="{{ url_for('pages.studentDashboard') }}">Back to Dashboard</a></p>
+</div>
+
+{% if not result %}
+<script>
+(function () {
+    var timeRemaining = Number('{{ duration_seconds }}');
+    var timerElement = document.getElementById('timer');
+    var form = document.getElementById('mock-test-form');
+
+    function formatTime(totalSeconds) {
+        var minutes = Math.floor(totalSeconds / 60);
+        var seconds = totalSeconds % 60;
+        return String(minutes) + ':' + String(seconds).padStart(2, '0');
+    }
+
+    timerElement.textContent = formatTime(timeRemaining);
+
+    var countdown = setInterval(function () {
+        timeRemaining -= 1;
+
+        if (timeRemaining <= 0) {
+            clearInterval(countdown);
+            timerElement.textContent = '0:00';
+            form.submit();
+            return;
+        }
+
+        timerElement.textContent = formatTime(timeRemaining);
+    }, 1000);
+})();
+</script>
+{% endif %}
+{% endblock %}

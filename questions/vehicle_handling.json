@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What is the best way to take a bend safely?",
+    "options": [
+      "Brake heavily on the bend",
+      "Choose a safe speed before the bend",
+      "Accelerate into the bend",
+      "Keep close to oncoming lane"
+    ],
+    "answer": "Choose a safe speed before the bend"
+  },
+  {
+    "question": "If your vehicle starts to skid, what should you generally do?",
+    "options": [
+      "Brake hard and hold wheel still",
+      "Steer into the skid and ease off acceleration",
+      "Accelerate quickly",
+      "Turn sharply away from skid"
+    ],
+    "answer": "Steer into the skid and ease off acceleration"
+  },
+  {
+    "question": "After driving through deep water, how should you check brakes?",
+    "options": [
+      "Test them gently when safe",
+      "Do nothing",
+      "Apply handbrake while moving fast",
+      "Brake hard immediately"
+    ],
+    "answer": "Test them gently when safe"
+  },
+  {
+    "question": "What can help prevent loss of control in poor weather?",
+    "options": [
+      "Higher speed in lower gears",
+      "Smooth steering, braking, and acceleration",
+      "Late braking into junctions",
+      "Driving close to other vehicles"
+    ],
+    "answer": "Smooth steering, braking, and acceleration"
+  }
+]

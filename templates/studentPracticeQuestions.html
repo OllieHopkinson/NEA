@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+Practice Questions
+{% endblock %}
+
+{% block head %}
+<style>
+input[type="radio"] {
+    accent-color: #000;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div>
+    <h1>{{ category_name }} Practice</h1>
+    <h2>Student: {{ user }}</h2>
+    <p>Select an answer then press "Check answer" for instant feedback.</p>
+
+    {% for question in questions %}
+        <div class="practice-question" data-question-id="{{ question.id }}">
+            <h3>{{ loop.index }}. {{ question.question }}</h3>
+
+            {% for option in question.options %}
+                <label>
+                    <input type="radio" name="{{ question.id }}" value="{{ option }}">
+                    {{ option }}
+                </label>
+                <br>
+            {% endfor %}
+
+            <button type="button" class="check-answer-btn">Check answer</button>
+            <p class="feedback" aria-live="polite"></p>
+            <p class="correct-answer" hidden>{{ question.answer }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <p><a href="{{ url_for('pages.student_questions_folder') }}">Back to Questions Folder</a></p>
+    <p><a href="{{ url_for('pages.studentDashboard') }}">Back to Dashboard</a></p>
+</div>
+
+<script>
+(function () {
+    var questionBlocks = document.querySelectorAll('.practice-question');
+
+    questionBlocks.forEach(function (block) {
+        var checkBtn = block.querySelector('.check-answer-btn');
+        var feedback = block.querySelector('.feedback');
+        var correctAnswer = block.querySelector('.correct-answer').textContent.trim();
+
+        checkBtn.addEventListener('click', function () {
+            var selected = block.querySelector('input[type="radio"]:checked');
+
+            if (!selected) {
+                feedback.textContent = 'Please select an answer first.';
+                return;
+            }
+
+            if (selected.value === correctAnswer) {
+                feedback.textContent = 'Correct. Well done.';
+            } else {
+                feedback.textContent = 'Incorrect. The correct answer is: ' + correctAnswer;
+            }
+        });
+    });
+})();
+</script>
+{% endblock %}

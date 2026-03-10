@@ -1,0 +1,42 @@
+[
+  {
+    "question": "After a collision with injuries, what is your first priority?",
+    "options": [
+      "Move your vehicle immediately",
+      "Check for danger and call emergency services",
+      "Take photos first",
+      "Leave to avoid traffic"
+    ],
+    "answer": "Check for danger and call emergency services"
+  },
+  {
+    "question": "If your vehicle catches fire while driving, what should you do?",
+    "options": [
+      "Keep driving to nearest town",
+      "Stop safely, switch off engine, evacuate and call emergency services",
+      "Open bonnet immediately",
+      "Pour water on engine"
+    ],
+    "answer": "Stop safely, switch off engine, evacuate and call emergency services"
+  },
+  {
+    "question": "You arrive first at a crash scene. What should you do?",
+    "options": [
+      "Move injured people quickly",
+      "Warn other traffic and call for help",
+      "Drive past to avoid delay",
+      "Film the scene"
+    ],
+    "answer": "Warn other traffic and call for help"
+  },
+  {
+    "question": "What information should be exchanged after a damage-only collision?",
+    "options": [
+      "Only first names",
+      "Name, address, and vehicle details",
+      "Nothing if both vehicles can move",
+      "Social media handles"
+    ],
+    "answer": "Name, address, and vehicle details"
+  }
+]

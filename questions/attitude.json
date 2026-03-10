@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is the safest attitude to have while driving?",
+    "options": [
+      "Competitive and aggressive",
+      "Patient and considerate",
+      "Fast and confident",
+      "Unpredictable to others"
+    ],
+    "answer": "Patient and considerate"
+  },
+  {
+    "question": "Another driver makes a mistake that affects you. What should you do?",
+    "options": [
+      "Sound your horn continuously",
+      "Stay calm and avoid confrontation",
+      "Follow them closely",
+      "Block their lane"
+    ],
+    "answer": "Stay calm and avoid confrontation"
+  },
+  {
+    "question": "Why should you avoid road rage?",
+    "options": [
+      "It uses more fuel",
+      "It can lead to poor decisions and danger",
+      "It only affects your passengers",
+      "It is legal if you are delayed"
+    ],
+    "answer": "It can lead to poor decisions and danger"
+  },
+  {
+    "question": "What should you do if another driver is tailgating you?",
+    "options": [
+      "Brake sharply",
+      "Speed up above the limit",
+      "Keep calm and let them pass when safe",
+      "Move side to side"
+    ],
+    "answer": "Keep calm and let them pass when safe"
+  },
+  {
+    "question": "How should you behave around learners and new drivers?",
+    "options": [
+      "Pressure them to move faster",
+      "Give them extra space and patience",
+      "Overtake in unsafe places",
+      "Use your horn to hurry them"
+    ],
+    "answer": "Give them extra space and patience"
+  }
+]

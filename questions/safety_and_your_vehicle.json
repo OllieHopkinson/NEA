@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Why is regular tyre pressure checking important?",
+    "options": [
+      "It changes radio quality",
+      "It improves safety and handling",
+      "It is only for winter",
+      "It makes insurance optional"
+    ],
+    "answer": "It improves safety and handling"
+  },
+  {
+    "question": "What should you do if a warning light appears while driving?",
+    "options": [
+      "Ignore it until service date",
+      "Check the vehicle manual and act safely",
+      "Switch off all lights",
+      "Continue at higher speed"
+    ],
+    "answer": "Check the vehicle manual and act safely"
+  },
+  {
+    "question": "Why must all windows be kept clear before driving?",
+    "options": [
+      "To improve fuel economy",
+      "To ensure full visibility",
+      "To reduce engine noise",
+      "To keep mirrors clean"
+    ],
+    "answer": "To ensure full visibility"
+  },
+  {
+    "question": "What should be adjusted before setting off?",
+    "options": [
+      "Only the radio",
+      "Seat, head restraint, and mirrors",
+      "Only steering wheel",
+      "Only climate control"
+    ],
+    "answer": "Seat, head restraint, and mirrors"
+  }
+]

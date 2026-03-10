@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What does the two-second rule help you maintain?",
+    "options": [
+      "Fuel economy",
+      "Safe following distance",
+      "Engine temperature",
+      "Lane discipline"
+    ],
+    "answer": "Safe following distance"
+  },
+  {
+    "question": "When should you increase your following distance to at least four seconds?",
+    "options": [
+      "In wet conditions",
+      "On clear dry roads",
+      "In slow city traffic",
+      "At traffic lights"
+    ],
+    "answer": "In wet conditions"
+  },
+  {
+    "question": "Why is tailgating dangerous?",
+    "options": [
+      "It blocks your view and reduces stopping space",
+      "It helps traffic flow",
+      "It is safer at low speed",
+      "It warns drivers ahead"
+    ],
+    "answer": "It blocks your view and reduces stopping space"
+  },
+  {
+    "question": "What should you do when being overtaken?",
+    "options": [
+      "Speed up to prevent passing",
+      "Maintain a steady speed",
+      "Move toward the center line",
+      "Brake sharply"
+    ],
+    "answer": "Maintain a steady speed"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What do circular signs with a red border usually indicate?",
+    "options": [
+      "Warnings",
+      "Orders or prohibitions",
+      "Tourist information",
+      "Road works only"
+    ],
+    "answer": "Orders or prohibitions"
+  },
+  {
+    "question": "What do triangular road signs usually indicate?",
+    "options": [
+      "Mandatory actions",
+      "Warnings",
+      "Route numbers",
+      "Parking areas"
+    ],
+    "answer": "Warnings"
+  },
+  {
+    "question": "What does a blue circular sign generally mean?",
+    "options": [
+      "No parking",
+      "Mandatory instruction",
+      "Hazard ahead",
+      "Tourist route"
+    ],
+    "answer": "Mandatory instruction"
+  },
+  {
+    "question": "What does a flashing amber light at a pelican crossing mean?",
+    "options": [
+      "Stop and wait",
+      "Proceed if crossing is clear",
+      "Pedestrians have no priority",
+      "Traffic lights broken"
+    ],
+    "answer": "Proceed if crossing is clear"
+  }
+]

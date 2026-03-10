@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Questions Folder
+{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Questions Folder</h1>
+    <h2>Student: {{ user }}</h2>
+    <p>Choose a topic to practice. You get instant feedback on each question.</p>
+
+    <p>
+        <a href="{{ url_for('pages.student_practice_all_random') }}">Practice All Questions (Random Order)</a>
+    </p>
+
+    {% if categories %}
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <a href="{{ url_for('pages.student_practice_category', category_slug=category.slug) }}">
+                        {{ category.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No question categories are available right now.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('pages.studentDashboard') }}">Back to Dashboard</a></p>
+</div>
+{% endblock %}

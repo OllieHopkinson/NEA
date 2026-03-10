@@ -1,0 +1,42 @@
+[
+  {
+    "question": "At a Give Way line, what must you do?",
+    "options": [
+      "Stop every time",
+      "Give way to traffic on the major road",
+      "Proceed first if turning left",
+      "Sound horn then go"
+    ],
+    "answer": "Give way to traffic on the major road"
+  },
+  {
+    "question": "What is the speed limit in built-up areas unless signs show otherwise?",
+    "options": [
+      "20 mph",
+      "30 mph",
+      "40 mph",
+      "50 mph"
+    ],
+    "answer": "30 mph"
+  },
+  {
+    "question": "What should you do at a STOP sign?",
+    "options": [
+      "Slow and roll through",
+      "Stop completely at the line",
+      "Only stop if traffic is visible",
+      "Stop after the junction"
+    ],
+    "answer": "Stop completely at the line"
+  },
+  {
+    "question": "What does a solid white centre line mean?",
+    "options": [
+      "Overtake at any time",
+      "Do not cross or straddle except where permitted",
+      "One-way traffic",
+      "Bus lane starts"
+    ],
+    "answer": "Do not cross or straddle except where permitted"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Which document proves your vehicle is roadworthy after three years old?",
+    "options": [
+      "V5C only",
+      "MOT certificate",
+      "Insurance certificate",
+      "Driving test pass sheet"
+    ],
+    "answer": "MOT certificate"
+  },
+  {
+    "question": "What is the legal minimum insurance for driving on UK roads?",
+    "options": [
+      "Third party only",
+      "Third party, fire and theft",
+      "Comprehensive only",
+      "No insurance needed for short trips"
+    ],
+    "answer": "Third party only"
+  },
+  {
+    "question": "What must you do with your driving licence details?",
+    "options": [
+      "Keep address details up to date",
+      "Renew only if stopped by police",
+      "Share it publicly online",
+      "Carry a paper counterpart at all times"
+    ],
+    "answer": "Keep address details up to date"
+  },
+  {
+    "question": "What does the V5C logbook primarily show?",
+    "options": [
+      "Proof of insurance",
+      "Registered keeper details",
+      "MOT test history only",
+      "Road tax payment receipt"
+    ],
+    "answer": "Registered keeper details"
+  }
+]

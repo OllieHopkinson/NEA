@@ -9,6 +9,8 @@ Test Theory App - Dashboard
     <h1>Dashboard</h1>
     <!-- Display welcome message with username -->
     <h2>Welcome, {{ user }}</h2>
+    <p><a href="{{ url_for('pages.student_questions_folder') }}">Open Questions Folder (Practice)</a></p>
+    <p><a href="{{ url_for('pages.start_student_mock_test') }}">Start UK Theory Mock Test (60 mins)</a></p>
     <!-- Link to log out -->
     <a href='auth/logout'>Logout</a>
 {% endblock %}

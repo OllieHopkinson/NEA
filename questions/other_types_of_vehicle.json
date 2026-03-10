@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Why should you give large vehicles extra space when they turn?",
+    "options": [
+      "They can stop faster",
+      "They need more room and may swing out",
+      "They always have priority",
+      "They cannot use mirrors"
+    ],
+    "answer": "They need more room and may swing out"
+  },
+  {
+    "question": "When overtaking a cyclist, what should you do?",
+    "options": [
+      "Pass closely to avoid crossing lane line",
+      "Give at least as much room as overtaking a car",
+      "Use horn as you pass",
+      "Overtake on bends"
+    ],
+    "answer": "Give at least as much room as overtaking a car"
+  },
+  {
+    "question": "What should you watch for around buses at stops?",
+    "options": [
+      "Bus drivers waving you through",
+      "Passengers stepping into the road",
+      "Only the rear lights",
+      "No special risk"
+    ],
+    "answer": "Passengers stepping into the road"
+  },
+  {
+    "question": "Why can motorcycles be harder to judge than cars?",
+    "options": [
+      "They are always slower",
+      "They have brighter lights",
+      "Their speed and distance can be harder to assess",
+      "They cannot change lanes"
+    ],
+    "answer": "Their speed and distance can be harder to assess"
+  }
+]
