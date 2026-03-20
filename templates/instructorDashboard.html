@@ -9,6 +9,66 @@ Test Theory App - Dashboard
     <h1>Dashboard</h1>
     <!-- Display welcome message with username -->
     <h2>Welcome, {{ user }}</h2>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h3>Add Student By Email</h3>
+    <form method="post" action="{{ url_for('pages.instructor_search_student') }}">
+        <label for="student-email-search">Student email</label>
+        <input
+            id="student-email-search"
+            type="email"
+            name="student_email"
+            required
+            value="{{ searched_email or '' }}"
+            placeholder="student@example.com"
+        >
+        <button type="submit">Search</button>
+    </form>
+
+    {% if searched_student %}
+        <p>Found student: <strong>{{ searched_student.username }}</strong> ({{ searched_student.email }})</p>
+        <form method="post" action="{{ url_for('pages.instructor_add_student') }}">
+            <input type="hidden" name="student_email" value="{{ searched_student.email }}">
+            <button type="submit">Add This Student</button>
+        </form>
+    {% endif %}
+
+    <h3>Your Students</h3>
+
+    {% if student_stats %}
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Email</th>
+                    <th>Open</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in student_stats %}
+                    <tr>
+                        <td>{{ student.username }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>
+                            <a href="{{ url_for('pages.instructor_student_stats', student_email=student.email) }}">
+                                View stats
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have not added any students yet.</p>
+    {% endif %}
+
     <!-- Link to log out -->
     <a href='auth/logout'>Logout</a>
 {% endblock %}

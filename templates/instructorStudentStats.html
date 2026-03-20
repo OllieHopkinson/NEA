@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Student Performance
+{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Student Performance</h1>
+    <h2>Instructor: {{ user }}</h2>
+
+    <p><strong>Student:</strong> {{ student.username }}</p>
+    <p><strong>Email:</strong> {{ student.email }}</p>
+
+    <h3>Mock Theory Test</h3>
+    <p>
+        <strong>Pass rate:</strong>
+        {% if student.mock_pass_rate_percentage is not none %}
+            {{ student.mock_pass_rate_percentage }}%
+            ({{ student.mock_passes }} passes out of {{ student.mock_attempts }} attempts)
+        {% else %}
+            No mock tests submitted yet.
+        {% endif %}
+    </p>
+
+    <h3>Practice Questions</h3>
+    <p>
+        <strong>Accuracy:</strong>
+        {% if student.practice_accuracy_percentage is not none %}
+            {{ student.practice_accuracy_percentage }}%
+            ({{ student.practice_correct }} correct out of {{ student.practice_answered }} answered)
+        {% else %}
+            No practice questions answered yet.
+        {% endif %}
+    </p>
+    <p>
+        <strong>Completion:</strong>
+        {{ student.practice_completion_percentage }}%
+    </p>
+
+    <p><a href="{{ url_for('pages.instructorDashboard') }}">Back to Instructor Dashboard</a></p>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-# Blueprint for all authentication routes (login, logout, create account)
+# Blueprint for all authentication routes
 from flask import Blueprint, flash, request, redirect, url_for, session
 
 from database import DatabaseHandler
@@ -28,6 +28,7 @@ def authorise_student():
         # double-check not necessary, but kept for logic consistency
         session['user'] = username # Store username in session for later use
         session['role'] = 'student'
+        session['email'] = email
         # Redirect to student dashboard on success
         return redirect(url_for('pages.studentDashboard'))        
     else:
@@ -51,6 +52,7 @@ def authorise_instructor():
     if success:
         session['user'] = username # Store username in session for later use
         session['role'] = 'instructor'
+        session['email'] = email
         # Redirect to instructor dashboard on success
         return redirect(url_for('pages.instructorDashboard'))
     else:
@@ -99,7 +101,7 @@ def create_user():
 
     # password requirements
     # Validate password has minimum length, number, and special character
-    if len(password) < 4:
+    if len(password) <= 4:
         errors.append('Password must be at least 4 characters long.')
     if password != confirm_password:
         errors.append('Passwords do not match.')
@@ -137,6 +139,7 @@ def create_user():
                 # Set session variables to log in the user
                 session['user'] = username
                 session['role'] = user_type
+                session['email'] = email
                 # redirect to the appropriate dashboard after signup
                 if user_type == 'student':
                     return redirect(url_for('pages.studentDashboard'))

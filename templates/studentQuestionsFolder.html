@@ -21,6 +21,8 @@ Questions Folder
                     <a href="{{ url_for('pages.student_practice_category', category_slug=category.slug) }}">
                         {{ category.name }}
                     </a>
+                    - {{ category.correct_percentage }}% correct
+                    ({{ category.correct_count }}/{{ category.count }})
                 </li>
             {% endfor %}
         </ul>

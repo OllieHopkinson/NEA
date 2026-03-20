@@ -44,11 +44,28 @@ input[type="radio"] {
 <script>
 (function () {
     var questionBlocks = document.querySelectorAll('.practice-question');
+    var recordUrl = '{{ url_for('pages.record_student_practice_answer') }}';
+
+    function recordPracticeAttempt(questionId, selectedAnswer) {
+        fetch(recordUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                question_id: questionId,
+                selected_answer: selectedAnswer
+            })
+        }).catch(function () {
+            // Keep client feedback responsive even if tracking request fails.
+        });
+    }
 
     questionBlocks.forEach(function (block) {
         var checkBtn = block.querySelector('.check-answer-btn');
         var feedback = block.querySelector('.feedback');
         var correctAnswer = block.querySelector('.correct-answer').textContent.trim();
+        var questionId = block.getAttribute('data-question-id');
 
         checkBtn.addEventListener('click', function () {
             var selected = block.querySelector('input[type="radio"]:checked');
@@ -57,6 +74,8 @@ input[type="radio"] {
                 feedback.textContent = 'Please select an answer first.';
                 return;
             }
+
+            recordPracticeAttempt(questionId, selected.value);
 
             if (selected.value === correctAnswer) {
                 feedback.textContent = 'Correct. Well done.';

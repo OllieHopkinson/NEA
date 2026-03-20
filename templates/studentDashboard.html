@@ -9,6 +9,34 @@ Test Theory App - Dashboard
     <h1>Dashboard</h1>
     <!-- Display welcome message with username -->
     <h2>Welcome, {{ user }}</h2>
+
+    <h3>Your Performance</h3>
+
+    <p>
+        <strong>Mock test pass rate:</strong>
+        {% if mock_stats.pass_rate_percentage is not none %}
+            {{ mock_stats.pass_rate_percentage }}%
+            ({{ mock_stats.passes }} passes out of {{ mock_stats.attempts }} attempts)
+        {% else %}
+            No mock tests submitted yet.
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Practice question accuracy:</strong>
+        {% if practice_stats.accuracy_percentage is not none %}
+            {{ practice_stats.accuracy_percentage }}%
+            ({{ practice_stats.correct }} correct out of {{ practice_stats.answered }} answered)
+        {% else %}
+            No practice questions answered yet.
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Practice completion (correct across all questions):</strong>
+        {{ practice_stats.completion_percentage }}%
+    </p>
+
     <p><a href="{{ url_for('pages.student_questions_folder') }}">Open Questions Folder (Practice)</a></p>
     <p><a href="{{ url_for('pages.start_student_mock_test') }}">Start UK Theory Mock Test (60 mins)</a></p>
     <!-- Link to log out -->

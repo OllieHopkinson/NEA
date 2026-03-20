@@ -1,115 +1,23 @@
 # Blueprint for all page routes (signin, signup, dashboards)
-import json
 import random
-from pathlib import Path
 
-from flask import Blueprint, get_flashed_messages, render_template, request, session, url_for, redirect
+from flask import Blueprint, flash, get_flashed_messages, jsonify, render_template, request, session, url_for, redirect
+from database import DatabaseHandler
 from scripts.authorised import authorised
 
+from blueprints.mock_test import (
+    MOCK_TEST_QUESTION_LOOKUP,
+    get_mock_test_questions_from_ids,
+    select_random_mock_test_question_ids,
+)
+from blueprints.practice_questions import (
+    ALL_PRACTICE_QUESTIONS,
+    PRACTICE_QUESTION_LOOKUP,
+    QUESTION_CATEGORIES,
+    build_question_folder_categories,
+)
+
 pages = Blueprint('pages', __name__)
-
-
-QUESTION_FILES = [
-    'alertness.json',
-    'attitude.json',
-    'essential_documents.json',
-    'hazard_awareness.json',
-    'incidents_accidents_emergencies.json',
-    'motorway_rules.json',
-    'other_types_of_vehicle.json',
-    'road_and_traffic_signs.json',
-    'rules_of_the_road.json',
-    'safety_and_your_vehicle.json',
-    'safety_margins.json',
-    'vehicle_handling.json',
-]
-
-QUESTIONS_DIR = Path(__file__).resolve().parent.parent / 'questions'
-
-
-def category_display_name(category_slug):
-    return category_slug.replace('_', ' ').title()
-
-
-def load_questions_by_category():
-    categories = {}
-
-    for file_name in QUESTION_FILES:
-        file_path = QUESTIONS_DIR / file_name
-        if not file_path.exists():
-            continue
-
-        with file_path.open('r', encoding='utf-8') as file_obj:
-            file_questions = json.load(file_obj)
-
-        category_slug = file_path.stem
-        question_items = []
-
-        for question_index, question in enumerate(file_questions, start=1):
-            question_items.append(
-                {
-                    'id': f'{category_slug}_q{question_index}',
-                    'question': question['question'],
-                    'options': question['options'],
-                    'answer': question['answer'],
-                }
-            )
-
-        categories[category_slug] = {
-            'name': category_display_name(category_slug),
-            'questions': question_items,
-        }
-
-    return categories
-
-
-def build_mock_test_questions(category_map):
-    mock_questions = []
-
-    for file_name in QUESTION_FILES:
-        category_slug = Path(file_name).stem
-        category_data = category_map.get(category_slug)
-        if not category_data:
-            continue
-
-        for question in category_data['questions']:
-            mock_questions.append(
-                {
-                    'source_id': question['id'],
-                    'question': question['question'],
-                    'options': question['options'],
-                    'answer': question['answer'],
-                    'category': category_data['name'],
-                }
-            )
-
-    for question in mock_questions:
-        question['id'] = question['source_id']
-
-    return mock_questions
-
-
-QUESTION_CATEGORIES = load_questions_by_category()
-ALL_MOCK_TEST_QUESTIONS = build_mock_test_questions(QUESTION_CATEGORIES)
-MOCK_TEST_QUESTION_LOOKUP = {question['id']: question for question in ALL_MOCK_TEST_QUESTIONS}
-
-
-def select_random_mock_test_question_ids(test_size=50):
-    all_ids = list(MOCK_TEST_QUESTION_LOOKUP.keys())
-    if not all_ids:
-        return []
-
-    sample_size = min(test_size, len(all_ids))
-    return random.sample(all_ids, sample_size)
-
-
-def get_mock_test_questions_from_ids(question_ids):
-    questions = []
-    for question_id in question_ids:
-        question = MOCK_TEST_QUESTION_LOOKUP.get(question_id)
-        if question:
-            questions.append(question)
-    return questions
 
 
 # Display sign in page or redirect if already logged in
@@ -132,6 +40,15 @@ def signin():
 # Route shows the signup page where new users can register.
 @pages.route('/')
 def signup():
+    # Redirect to dashboard if user is already logged in
+    if authorised():
+        role = session.get('role')
+
+        if role == 'student':
+            return redirect(url_for('pages.studentDashboard'))
+        elif role == 'instructor':
+            return redirect(url_for('pages.instructorDashboard'))
+
     messages = get_flashed_messages()
     return render_template('signup.html', messages = messages)
 
@@ -146,7 +63,17 @@ def studentDashboard():
     if session.get('role') != 'student':
         return redirect(url_for('pages.signin'))
     user = session['user']
-    return render_template('studentDashboard.html', user = user)
+
+    db = DatabaseHandler()
+    mock_stats = db.getMockPassRateForStudent(user)
+    practice_stats = db.getPracticeStatsForStudent(user, total_available_questions=len(ALL_PRACTICE_QUESTIONS))
+
+    return render_template(
+        'studentDashboard.html',
+        user=user,
+        mock_stats=mock_stats,
+        practice_stats=practice_stats,
+    )
 
 
 # Instructor dashboard - only accessible when logged in
@@ -157,8 +84,109 @@ def instructorDashboard():
         return redirect(url_for('pages.signin'))
     if session.get('role') != 'instructor':
         return redirect(url_for('pages.signin'))
+
     user = session['user']
-    return render_template('instructorDashboard.html', user = user)
+    instructor_email = session.get('email')
+
+    if not instructor_email:
+        flash('Please sign in again to access instructor student management.')
+        return redirect(url_for('pages.signin'))
+
+    messages = get_flashed_messages()
+    searched_email = request.args.get('searched_email', '').strip()
+
+    db = DatabaseHandler()
+    searched_student = db.findStudentByEmail(searched_email) if searched_email else None
+    student_stats = db.getInstructorStudentsWithSummary(
+        instructor_email,
+        total_available_questions=len(ALL_PRACTICE_QUESTIONS),
+    )
+
+    return render_template(
+        'instructorDashboard.html',
+        user=user,
+        student_stats=student_stats,
+        searched_email=searched_email,
+        searched_student=searched_student,
+        messages=messages,
+    )
+
+
+@pages.route('/instructor/students/search', methods=['POST'])
+def instructor_search_student():
+    # Only logged-in instructors can search for students.
+    if not authorised() or session.get('role') != 'instructor':
+        return redirect(url_for('pages.signin'))
+
+    student_email = request.form.get('student_email', '').strip()
+    if not student_email:
+        flash('Enter a student email to search.')
+        return redirect(url_for('pages.instructorDashboard'))
+
+    db = DatabaseHandler()
+    student = db.findStudentByEmail(student_email)
+
+    if not student:
+        flash('No student account found with that email.')
+        return redirect(url_for('pages.instructorDashboard'))
+
+    return redirect(url_for('pages.instructorDashboard', searched_email=student['email']))
+
+
+@pages.route('/instructor/students/add', methods=['POST'])
+def instructor_add_student():
+    # Only logged-in instructors can add students.
+    if not authorised() or session.get('role') != 'instructor':
+        return redirect(url_for('pages.signin'))
+
+    instructor_email = session.get('email')
+    if not instructor_email:
+        flash('Please sign in again to add students.')
+        return redirect(url_for('pages.signin'))
+
+    student_email = request.form.get('student_email', '').strip()
+    if not student_email:
+        flash('Student email is required.')
+        return redirect(url_for('pages.instructorDashboard'))
+
+    db = DatabaseHandler()
+    success, result = db.addStudentToInstructor(instructor_email, student_email)
+
+    if not success and result == 'student_not_found':
+        flash('No student account found with that email.')
+    elif not success and result == 'already_added':
+        flash('That student is already on your roster.')
+    elif success:
+        flash('Student added to your roster.')
+    else:
+        flash('Unable to add student right now. Please try again.')
+
+    return redirect(url_for('pages.instructorDashboard'))
+
+
+@pages.route('/instructor/students/<path:student_email>/stats')
+def instructor_student_stats(student_email):
+    # Only logged-in instructors can view student stats.
+    if not authorised() or session.get('role') != 'instructor':
+        return redirect(url_for('pages.signin'))
+
+    instructor_email = session.get('email')
+    if not instructor_email:
+        flash('Please sign in again to view student stats.')
+        return redirect(url_for('pages.signin'))
+
+    db = DatabaseHandler()
+    student = db.getInstructorStudentPerformance(
+        instructor_email,
+        student_email,
+        total_available_questions=len(ALL_PRACTICE_QUESTIONS),
+    )
+
+    if not student:
+        flash('Student not found on your roster.')
+        return redirect(url_for('pages.instructorDashboard'))
+
+    return render_template('instructorStudentStats.html', user=session['user'], student=student)
 
 
 @pages.route('/student/questions')
@@ -168,23 +196,45 @@ def student_questions_folder():
         return redirect(url_for('pages.signin'))
 
     user = session['user']
-    categories = []
+    categories = build_question_folder_categories(QUESTION_CATEGORIES)
 
-    for file_name in QUESTION_FILES:
-        category_slug = Path(file_name).stem
-        category_data = QUESTION_CATEGORIES.get(category_slug)
-        if not category_data:
-            continue
+    db = DatabaseHandler()
+    category_correct_counts = db.getPracticeCorrectCountsByCategory(user)
 
-        categories.append(
-            {
-                'slug': category_slug,
-                'name': category_data['name'],
-                'count': len(category_data['questions']),
-            }
-        )
+    for category in categories:
+        total_questions = category['count']
+        correct_questions = category_correct_counts.get(category['slug'], 0)
+        category['correct_count'] = correct_questions
+        category['correct_percentage'] = round((correct_questions / total_questions) * 100, 1) if total_questions else 0.0
 
     return render_template('studentQuestionsFolder.html', user=user, categories=categories)
+
+
+@pages.route('/student/questions/record', methods=['POST'])
+def record_student_practice_answer():
+    # Only logged-in students can record question progress.
+    if not authorised() or session.get('role') != 'student':
+        return jsonify({'ok': False, 'error': 'unauthorised'}), 401
+
+    payload = request.get_json(silent=True) or {}
+    question_id = payload.get('question_id')
+    selected_answer = payload.get('selected_answer', '')
+
+    question = PRACTICE_QUESTION_LOOKUP.get(question_id)
+    if not question:
+        return jsonify({'ok': False, 'error': 'unknown_question'}), 400
+
+    is_correct = selected_answer == question['answer']
+
+    db = DatabaseHandler()
+    db.recordPracticeQuestionAttempt(
+        student_username=session['user'],
+        question_id=question_id,
+        category_slug=question['category_slug'],
+        is_correct=is_correct,
+    )
+
+    return jsonify({'ok': True, 'is_correct': is_correct})
 
 
 @pages.route('/student/questions/all-random')
@@ -194,7 +244,7 @@ def student_practice_all_random():
         return redirect(url_for('pages.signin'))
 
     user = session['user']
-    questions = list(ALL_MOCK_TEST_QUESTIONS)
+    questions = list(ALL_PRACTICE_QUESTIONS)
     random.shuffle(questions)
 
     return render_template(
@@ -294,6 +344,14 @@ def student_mock_test():
             'passed': score >= pass_mark,
             'pass_mark': pass_mark,
         }
+
+        db = DatabaseHandler()
+        db.recordMockTestAttempt(
+            student_username=user,
+            score=score,
+            total_questions=total_questions,
+            passed=result['passed'],
+        )
 
         # Clear active test so the next visit starts a new random test.
         session.pop('active_mock_test_question_ids', None)
